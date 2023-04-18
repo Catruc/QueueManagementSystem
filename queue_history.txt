@@ -1,0 +1,240 @@
+Time: 0
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 1
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 2
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 3
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 4
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 5
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 6
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 7
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 8
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 9
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 10
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 11
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 12
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 13
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 14
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 15
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 16
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 17
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 18
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 19
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 20
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 21
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 22
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 23
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 24
+Clients not yet in any queue: [{3,25,2}, {2,29,2}, {1,26,2}, {4,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 25
+Clients not yet in any queue: [{1,26,2}, {2,29,2}, {4,29,2}]
+QUEUE1 queue: [{3,25,2}]
+QUEUE2 queue: []
+Time: 26
+Clients not yet in any queue: [{4,29,2}, {2,29,2}]
+QUEUE1 queue: [{3,25,1}]
+QUEUE2 queue: [{1,26,2}]
+Time: 27
+Clients not yet in any queue: [{4,29,2}, {2,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: [{1,26,1}]
+Time: 28
+Clients not yet in any queue: [{4,29,2}, {2,29,2}]
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 29
+Clients not yet in any queue: []
+QUEUE1 queue: [{4,29,2}]
+QUEUE2 queue: [{2,29,2}]
+Time: 30
+Clients not yet in any queue: []
+QUEUE1 queue: [{4,29,1}]
+QUEUE2 queue: [{2,29,1}]
+Time: 31
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 32
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 33
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 34
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 35
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 36
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 37
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 38
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 39
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 40
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 41
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 42
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 43
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 44
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 45
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 46
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 47
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 48
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 49
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 50
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 51
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 52
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 53
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 54
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 55
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 56
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 57
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 58
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
+Time: 59
+Clients not yet in any queue: []
+QUEUE1 queue: []
+QUEUE2 queue: []
