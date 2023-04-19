@@ -34,6 +34,7 @@ public class SimulationFrame {
         JTextField maximumServiceTimeTextField = new JTextField(10);
         JButton startSimulationButton = new JButton("Start simulation");
         JTextArea simulationResultsTextArea = new JTextArea();
+        JTextArea otherResultsTextArea = new JTextArea();
 
         numberOfClientsLabel.setBounds(10, 15, 150, 25);
         numberOfClientsTextField.setBounds(160, 15, 150, 25);
@@ -51,6 +52,7 @@ public class SimulationFrame {
         maximumServiceTimeTextField.setBounds(160, 195, 150, 25);
         startSimulationButton.setBounds(10, 225, 150, 25);
         simulationResultsTextArea.setBounds(10, 255, 550, 500);
+        otherResultsTextArea.setBounds(320, 30, 260, 200);
         JScrollPane scrollPane = new JScrollPane(simulationResultsTextArea);
         scrollPane.setBounds(10, 255, 550, 500);
 
@@ -72,14 +74,22 @@ public class SimulationFrame {
                     queueManager.addClient(task);
                 }
                 ExecutorService executorService = Executors.newSingleThreadExecutor();
-                executorService.submit(() -> queueManager.processClients(queueManager.servers, simulationInterval));
                 ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+                executorService.submit(() -> {
+                    queueManager.processClients(queueManager.servers, simulationInterval);
+                    queueManager.findPeakHour(); // call findPeakHour after processClients
+                });
+
                 scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
                     @Override
                     public void run() {
                         SwingUtilities.invokeLater(new Runnable() {
                             public void run() {
                                 simulationResultsTextArea.setText(queueManager.queueHistory.toString());
+                                if (queueManager.getPeakHour().get() != -1) {
+                                    otherResultsTextArea.setText("Peak hour: " + queueManager.getPeakHour().get()+"\n");
+
+                                }
                             }
                         });
                     }
@@ -105,6 +115,7 @@ public class SimulationFrame {
         frame.add(startSimulationButton);
         //frame.add(simulationResultsTextArea);
         frame.add(scrollPane);
+        frame.add(otherResultsTextArea);
         frame.setVisible(true);
     }
 

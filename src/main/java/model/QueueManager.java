@@ -4,11 +4,9 @@ import javax.swing.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class QueueManager {
 
@@ -18,6 +16,8 @@ public class QueueManager {
     private int maxSimulationTime;
     private CyclicBarrier barrier;
     public StringBuilder queueHistory;
+    private Map<Integer, Integer> tasksPerTimeInterval;
+    private AtomicInteger peakHour;
 
     public QueueManager(int numServers, int maxSimulationTime) {
         this.numServers = numServers;     // Number of servers
@@ -26,6 +26,8 @@ public class QueueManager {
         waitingClients = new PriorityQueue<>(Comparator.comparingInt(Task::getArrivalTime));  // List of waiting clients
         barrier = new CyclicBarrier(numServers);   // Cyclic barrier for the servers
         this.queueHistory = new StringBuilder();
+        tasksPerTimeInterval = new HashMap<>();
+        peakHour = new AtomicInteger(0);
 
         for (int i = 0; i < numServers; i++) {
             BlockingQueue<Task> taskQueue = new LinkedBlockingQueue<>();  // Create a queue for each server
@@ -39,6 +41,10 @@ public class QueueManager {
 
     }
 
+    public AtomicInteger getPeakHour() {
+        return peakHour;
+    }
+
     public void addClient(Task task) {
         waitingClients.add(task);
     }
@@ -47,14 +53,45 @@ public class QueueManager {
         return "Clients not yet in any queue: " + waitingClients;
     }
 
-    public void distributeClient(Task client) {
+
+    public static int getTotalServiceTime(Server server) {
+        return server.getTasks().stream().mapToInt(Task::getServiceTime).sum();
+    }
+
+
+
+    public synchronized void distributeClient(Task client) {
         if (client.getArrivalTime() <= maxSimulationTime) {
-            Server bestServer = getServerWithMinimumWaitingTime(servers);
-            bestServer.addTask(client);
+            int minTasks = Integer.MAX_VALUE;
+            int minServiceTime = Integer.MAX_VALUE;
+            Server bestServer = null;
+
+            for (Server server : servers) {
+                int currentTasks = server.getTasks().size();
+                int currentServiceTime = getTotalServiceTime(server);
+
+                if (currentTasks < minTasks || (currentTasks == minTasks && currentServiceTime < minServiceTime)) {
+                    minTasks = currentTasks;
+                    minServiceTime = currentServiceTime;
+                    bestServer = server;
+                }
+            }
+
+            if (bestServer != null) {
+                bestServer.addTask(client);
+            }
         }
     }
 
+    public void findPeakHour() {
+        int peakHourValue = tasksPerTimeInterval.entrySet().stream().max(Map.Entry.comparingByValue()).orElseThrow(RuntimeException::new).getKey();
+        peakHour.set(peakHourValue);
+    }
+
+
     public void printLiveStatus(int currentTime,ExecutorService executorService){
+        int totalTasks = servers.stream().mapToInt(server -> server.getTasks().size()).sum();
+        tasksPerTimeInterval.put(currentTime, totalTasks);
         System.out.println("Time: " + currentTime);
         queueHistory.append("Time: ").append(currentTime).append(System.lineSeparator());
         String waitingClientsStatus = printWaitingClients();
@@ -93,7 +130,15 @@ public class QueueManager {
         }
         executorService.shutdown();
         if (stop == 0) {
+            try {
+                Thread.sleep(1000); // Sleep for 1 second before calculating the average waiting time
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             System.out.println("Simulation finished");
+            queueHistory.append("Simulation finished").append(System.lineSeparator());
+            findPeakHour();
+            queueHistory.append("Peak hour: ").append(peakHour).append(System.lineSeparator());
         }
     }
 
@@ -103,10 +148,6 @@ public class QueueManager {
         } catch (IOException e) {
             System.err.println("Error writing queue history to file: " + e.getMessage());
         }
-    }
-
-    public static Server getServerWithMinimumWaitingTime(List<Server> servers) {
-        return servers.stream().min(Comparator.comparingInt(server -> server.getWaitingPeriod().get())).orElseThrow(RuntimeException::new);
     }
 
 

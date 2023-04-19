@@ -22,7 +22,6 @@ public class Server implements Runnable {
 
     public void addTask(Task task) {
         tasks.add(task);
-        waitingPeriod.addAndGet(task.getServiceTime());
     }
 
     public BlockingQueue<Task> getTasks() {
@@ -60,7 +59,6 @@ public class Server implements Runnable {
                     }
                 }
                 //System.out.println("Current time: " + currentTime + "\n");
-
                 barrier.await();  // Wait for all the servers to finish processing the current task
                 //printQueueStatus();
                 Thread.sleep(1000); // Sleep for 1 second to simulate 1 second of simulation time
@@ -71,6 +69,11 @@ public class Server implements Runnable {
 
         }
     }
+
+    public int getTotalServiceTime() {
+        return tasks.stream().mapToInt(Task::getServiceTime).sum();
+    }
+
 
     public String printQueueStatus() {
         return serverName + tasks;
