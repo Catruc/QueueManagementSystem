@@ -51,7 +51,6 @@ public class SimulationFrame {
         maximumServiceTimeTextField.setBounds(160, 195, 150, 25);
         startSimulationButton.setBounds(10, 225, 150, 25);
         simulationResultsTextArea.setBounds(10, 255, 550, 500);
-
         JScrollPane scrollPane = new JScrollPane(simulationResultsTextArea);
         scrollPane.setBounds(10, 255, 550, 500);
 
@@ -104,7 +103,7 @@ public class SimulationFrame {
         frame.add(maximumServiceTimeLabel);
         frame.add(maximumServiceTimeTextField);
         frame.add(startSimulationButton);
-        frame.add(simulationResultsTextArea);
+        //frame.add(simulationResultsTextArea);
         frame.add(scrollPane);
         frame.setVisible(true);
     }
