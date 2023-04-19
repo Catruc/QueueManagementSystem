@@ -1,12 +1,13 @@
 package GUI;
 
+import model.QueueManager;
 import model.Task;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.*;
 
 public class SimulationFrame {
 
@@ -32,7 +33,7 @@ public class SimulationFrame {
         JLabel maximumServiceTimeLabel = new JLabel("Maximum service time: ");
         JTextField maximumServiceTimeTextField = new JTextField(10);
         JButton startSimulationButton = new JButton("Start simulation");
-        JTextField simulationResultsTextField = new JTextField();
+        JTextArea simulationResultsTextArea = new JTextArea();
 
         numberOfClientsLabel.setBounds(10, 15, 150, 25);
         numberOfClientsTextField.setBounds(160, 15, 150, 25);
@@ -49,7 +50,10 @@ public class SimulationFrame {
         maximumServiceTimeLabel.setBounds(10, 195, 150, 25);
         maximumServiceTimeTextField.setBounds(160, 195, 150, 25);
         startSimulationButton.setBounds(10, 225, 150, 25);
-        simulationResultsTextField.setBounds(10, 255, 550, 500);
+        simulationResultsTextArea.setBounds(10, 255, 550, 500);
+
+        JScrollPane scrollPane = new JScrollPane(simulationResultsTextArea);
+        scrollPane.setBounds(10, 255, 550, 500);
 
         startSimulationButton.addActionListener(new ActionListener() {
             @Override
@@ -62,13 +66,25 @@ public class SimulationFrame {
                 int minServiceTime = Integer.parseInt(minimumServiceTimeTextField.getText());
                 int maxServiceTime = Integer.parseInt(maximumServiceTimeTextField.getText());
 
-                if(simulationInterval<maxArrivalTime && simulationInterval<maxServiceTime && simulationInterval<minArrivalTime && simulationInterval<minServiceTime && minArrivalTime>maxArrivalTime && minServiceTime>maxServiceTime){
-                    JOptionPane.showMessageDialog(frame, "Simulation interval must be greater than maximum arrival time and maximum service time");
-                    return;
-                }
-
+                QueueManager queueManager = new QueueManager(numberOfQueues, simulationInterval);
                 BlockingQueue<Task> tasks = Task.generateRandomTask(numberOfClients, minArrivalTime, maxArrivalTime, minServiceTime, maxServiceTime);
-
+                // Add tasks to the queue manager
+                for (Task task : tasks) {
+                    queueManager.addClient(task);
+                }
+                ExecutorService executorService = Executors.newSingleThreadExecutor();
+                executorService.submit(() -> queueManager.processClients(queueManager.servers, simulationInterval));
+                ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+                scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
+                    @Override
+                    public void run() {
+                        SwingUtilities.invokeLater(new Runnable() {
+                            public void run() {
+                                simulationResultsTextArea.setText(queueManager.queueHistory.toString());
+                            }
+                        });
+                    }
+                }, 0, 1, TimeUnit.SECONDS);
             }
         });
 
@@ -88,7 +104,8 @@ public class SimulationFrame {
         frame.add(maximumServiceTimeLabel);
         frame.add(maximumServiceTimeTextField);
         frame.add(startSimulationButton);
-        frame.add(simulationResultsTextField);
+        frame.add(simulationResultsTextArea);
+        frame.add(scrollPane);
         frame.setVisible(true);
     }
 

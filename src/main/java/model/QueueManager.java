@@ -12,12 +12,12 @@ import java.util.concurrent.*;
 
 public class QueueManager {
 
-    public List<Server> servers;
+    public ArrayList<Server> servers;
     private int numServers;
     private PriorityQueue<Task> waitingClients;
     private int maxSimulationTime;
     private CyclicBarrier barrier;
-    private StringBuilder queueHistory;
+    public StringBuilder queueHistory;
 
     public QueueManager(int numServers, int maxSimulationTime) {
         this.numServers = numServers;     // Number of servers
