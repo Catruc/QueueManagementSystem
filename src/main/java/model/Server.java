@@ -73,11 +73,11 @@ public class Server implements Runnable {
     }
 
     public String printQueueStatus() {
-        return serverName + " queue: " + tasks;
+        return serverName + tasks;
     }
 
     public void printQueueStatusForConsole() {
-        System.out.println(serverName + " queue: " + tasks);
+        System.out.println(serverName + tasks);
     }
 
 }

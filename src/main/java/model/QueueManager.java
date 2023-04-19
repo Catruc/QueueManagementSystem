@@ -54,32 +54,35 @@ public class QueueManager {
         }
     }
 
+    public void printLiveStatus(int currentTime,ExecutorService executorService){
+        System.out.println("Time: " + currentTime);
+        queueHistory.append("Time: ").append(currentTime).append(System.lineSeparator());
+        String waitingClientsStatus = printWaitingClients();
+        System.out.println(waitingClientsStatus);
+        queueHistory.append(waitingClientsStatus).append(System.lineSeparator());
+        for (Server server : servers) {
+            Future<?> future = executorService.submit(server::printQueueStatusForConsole);  // Print the queue status of each server
+            try {
+                future.get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+        servers.forEach(server -> {
+            queueHistory.append(server.printQueueStatus()).append(System.lineSeparator());
+        });
+    }
+
     public void processClients(List<Server> servers, int maxSimulationTime) {
         ExecutorService executorService = Executors.newFixedThreadPool(numServers);
         int currentTime = 0;
         int stop = 1;
-        while (!waitingClients.isEmpty() || currentTime < maxSimulationTime) {
+        while (!waitingClients.isEmpty() || currentTime < maxSimulationTime||stop==1) {
             while (!waitingClients.isEmpty() && waitingClients.peek().getArrivalTime() == currentTime) {
                 Task client = waitingClients.poll();
                 distributeClient(client);
             }
-            System.out.println("Time: " + currentTime);
-            queueHistory.append("Time: ").append(currentTime).append(System.lineSeparator());
-            String waitingClientsStatus = printWaitingClients();
-            System.out.println(waitingClientsStatus);
-            queueHistory.append(waitingClientsStatus).append(System.lineSeparator());
-            for (Server server : servers) {
-                Future<?> future = executorService.submit(server::printQueueStatusForConsole);  // Print the queue status of each server
-                try {
-                    future.get();  // Wait for the task to complete before proceeding to the next server
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
-            }
-            servers.forEach(server -> {
-                //server.printQueueStatus();
-                queueHistory.append(server.printQueueStatus()).append(System.lineSeparator());
-            });
+            printLiveStatus(currentTime,executorService);
             try {
                 Thread.sleep(1000); // Sleep for 1 second to simulate 1 second of simulation time
             } catch (InterruptedException e) {
