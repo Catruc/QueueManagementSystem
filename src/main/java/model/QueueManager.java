@@ -19,6 +19,7 @@ public class QueueManager {
     private Map<Integer, Integer> tasksPerTimeInterval;
     private AtomicInteger peakHour;
 
+
     public QueueManager(int numServers, int maxSimulationTime) {
         this.numServers = numServers;     // Number of servers
         this.maxSimulationTime = maxSimulationTime;  // Maximum simulation time
@@ -40,6 +41,7 @@ public class QueueManager {
         }
 
     }
+
 
     public AtomicInteger getPeakHour() {
         return peakHour;
@@ -110,16 +112,18 @@ public class QueueManager {
         });
     }
 
-    public void processClients(List<Server> servers, int maxSimulationTime) {
+    public void processClients(List<Server> servers, int maxSimulationTime, List<Task> tasks) {
         ExecutorService executorService = Executors.newFixedThreadPool(numServers);
         int currentTime = 0;
         int stop = 1;
+        double averageServingTime = calculateAverageServingTime(tasks);
         while (!waitingClients.isEmpty() || currentTime < maxSimulationTime||stop==1) {
             while (!waitingClients.isEmpty() && waitingClients.peek().getArrivalTime() == currentTime) {
                 Task client = waitingClients.poll();
                 distributeClient(client);
             }
             printLiveStatus(currentTime,executorService);
+
             try {
                 Thread.sleep(1000); // Sleep for 1 second to simulate 1 second of simulation time
             } catch (InterruptedException e) {
@@ -130,15 +134,10 @@ public class QueueManager {
         }
         executorService.shutdown();
         if (stop == 0) {
-            try {
-                Thread.sleep(1000); // Sleep for 1 second before calculating the average waiting time
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("Simulation finished");
             queueHistory.append("Simulation finished").append(System.lineSeparator());
             findPeakHour();
             queueHistory.append("Peak hour: ").append(peakHour).append(System.lineSeparator());
+            queueHistory.append("Average serving time: ").append(averageServingTime).append(System.lineSeparator());
         }
     }
 
@@ -150,5 +149,11 @@ public class QueueManager {
         }
     }
 
-
+    public double calculateAverageServingTime(List<Task> tasks) {
+        int totalServiceTime = 0;
+        for (Task task : tasks) {
+            totalServiceTime += task.getServiceTime();
+        }
+        return (double) totalServiceTime / tasks.size();
+    }
 }

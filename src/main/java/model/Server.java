@@ -10,6 +10,7 @@ public class Server implements Runnable {
     private int maxSimulationTime;
     private CyclicBarrier barrier;
     private String serverName;
+    private AtomicInteger totalWaitingTime;
 
 
     public Server(BlockingQueue<Task> tasks, int maxSimulationTime,CyclicBarrier barrier,String serverName) {
@@ -18,6 +19,7 @@ public class Server implements Runnable {
         this.waitingPeriod = new AtomicInteger(0);
         this.barrier=barrier;
         this.serverName=serverName;
+        this.totalWaitingTime = new AtomicInteger(0);
     }
 
     public void addTask(Task task) {
@@ -32,6 +34,11 @@ public class Server implements Runnable {
         return waitingPeriod;
     }
 
+    public int getTotalWaitingTime() {
+        return totalWaitingTime.get();
+    }
+
+
     public void decrementServiceTime() {
         if (!tasks.isEmpty()) {
             Task currentTask = tasks.peek();
@@ -40,7 +47,6 @@ public class Server implements Runnable {
             }
         }
     }
-
     @Override
     public void run() {
 
@@ -54,7 +60,7 @@ public class Server implements Runnable {
                         if (currentTask.getServiceTime() == 0) {    // If the service time of the task is 0, remove it from the queue
                             tasks.poll();   // Remove the task from the queue
                             waitingPeriod.addAndGet(-currentTask.getServiceTime());   // Decrement the waiting period of the server
-
+                            totalWaitingTime.addAndGet(currentTask.getWaitingTime());
                         }
                     }
                 }

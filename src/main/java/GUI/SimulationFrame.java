@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.concurrent.*;
 
 public class SimulationFrame {
@@ -73,10 +74,11 @@ public class SimulationFrame {
                 for (Task task : tasks) {
                     queueManager.addClient(task);
                 }
+                double initialAverageServingTime = queueManager.calculateAverageServingTime(new ArrayList<>(tasks));
                 ExecutorService executorService = Executors.newSingleThreadExecutor();
                 ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
                 executorService.submit(() -> {
-                    queueManager.processClients(queueManager.servers, simulationInterval);
+                    queueManager.processClients(queueManager.servers, simulationInterval,new ArrayList<>(tasks));
                     queueManager.findPeakHour(); // call findPeakHour after processClients
                 });
 
@@ -88,7 +90,9 @@ public class SimulationFrame {
                                 simulationResultsTextArea.setText(queueManager.queueHistory.toString());
                                 if (queueManager.getPeakHour().get() != -1) {
                                     otherResultsTextArea.setText("Peak hour: " + queueManager.getPeakHour().get()+"\n");
-
+                                }
+                                if (initialAverageServingTime != -1) {
+                                    otherResultsTextArea.append("Average Serving Time: " + initialAverageServingTime + "\n");
                                 }
                             }
                         });

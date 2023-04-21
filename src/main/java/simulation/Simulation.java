@@ -4,6 +4,7 @@ import model.QueueManager;
 import model.Server;
 import model.Task;
 
+import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 
 public class Simulation {
@@ -21,13 +22,14 @@ public class Simulation {
         int minServiceTime = 2;
         int maxServiceTime = 4;
         BlockingQueue<Task> tasks = Task.generateRandomTask(numTasks, minArrivalTime, maxArrivalTime, minServiceTime, maxServiceTime);
+        double average=queueManager.calculateAverageServingTime(new ArrayList<>(tasks));
         // Add tasks to the queue manager
         for (Task task : tasks) {
             queueManager.addClient(task);
         }
 
         // Process the clients
-        queueManager.processClients(queueManager.servers, maxSimulationTime);
+        queueManager.processClients(queueManager.servers, maxSimulationTime,new ArrayList<>(tasks));
         queueManager.writeQueueHistoryToFile("queue_history.txt");
     }
 }
