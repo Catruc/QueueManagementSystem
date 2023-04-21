@@ -11,6 +11,7 @@ public class Server implements Runnable {
     private CyclicBarrier barrier;
     private String serverName;
     private AtomicInteger totalWaitingTime;
+    private AtomicInteger totalProcessedTasks;
 
 
     public Server(BlockingQueue<Task> tasks, int maxSimulationTime,CyclicBarrier barrier,String serverName) {
@@ -20,6 +21,7 @@ public class Server implements Runnable {
         this.barrier=barrier;
         this.serverName=serverName;
         this.totalWaitingTime = new AtomicInteger(0);
+        this.totalProcessedTasks = new AtomicInteger(0);
     }
 
     public void addTask(Task task) {
@@ -58,9 +60,12 @@ public class Server implements Runnable {
                     if (currentTask.getArrivalTime() <= currentTime) {
                         decrementServiceTime();   // Decrement the service time of the task
                         if (currentTask.getServiceTime() == 0) {    // If the service time of the task is 0, remove it from the queue
-                            tasks.poll();   // Remove the task from the queue
-                            waitingPeriod.addAndGet(-currentTask.getServiceTime());   // Decrement the waiting period of the server
+                            tasks.poll();
+                            int taskWaitingTime = currentTime - currentTask.getArrivalTime() - currentTask.getServiceTime();
+                            currentTask.setWaitingTime(taskWaitingTime);
+                            waitingPeriod.addAndGet(-currentTask.getServiceTime());
                             totalWaitingTime.addAndGet(currentTask.getWaitingTime());
+                            totalProcessedTasks.incrementAndGet(); // Increment the total processed tasks count
                         }
                     }
                 }
@@ -87,6 +92,10 @@ public class Server implements Runnable {
 
     public void printQueueStatusForConsole() {
         System.out.println(serverName + tasks);
+    }
+
+    public int getTotalProcessedTasks() {
+        return totalProcessedTasks.get();
     }
 
 }

@@ -80,6 +80,7 @@ public class SimulationFrame {
                 executorService.submit(() -> {
                     queueManager.processClients(queueManager.servers, simulationInterval,new ArrayList<>(tasks));
                     queueManager.findPeakHour(); // call findPeakHour after processClients
+                    queueManager.calculateAverageWaitingTime();
                 });
 
                 scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
@@ -94,6 +95,8 @@ public class SimulationFrame {
                                 if (initialAverageServingTime != -1) {
                                     otherResultsTextArea.append("Average Serving Time: " + initialAverageServingTime + "\n");
                                 }
+                                double averageWaitingTime = queueManager.calculateAverageWaitingTime();
+                                otherResultsTextArea.append("Average Waiting Time: " + averageWaitingTime + "\n");
                             }
                         });
                     }

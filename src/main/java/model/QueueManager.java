@@ -138,6 +138,9 @@ public class QueueManager {
             findPeakHour();
             queueHistory.append("Peak hour: ").append(peakHour).append(System.lineSeparator());
             queueHistory.append("Average serving time: ").append(averageServingTime).append(System.lineSeparator());
+            double averageWaitingTime = calculateAverageWaitingTime(); // Calculate the average waiting time
+            queueHistory.append("Average waiting time: ").append(averageWaitingTime).append(System.lineSeparator()); // Append the average waiting time to the queue history
+            System.out.println(averageWaitingTime);
         }
     }
 
@@ -156,4 +159,17 @@ public class QueueManager {
         }
         return (double) totalServiceTime / tasks.size();
     }
+
+    public double calculateAverageWaitingTime() {
+        int totalWaitingTime = 0;
+        int totalProcessedTasks = 0;
+
+        for (Server server : servers) {
+            totalWaitingTime += server.getTotalWaitingTime();
+            totalProcessedTasks += server.getTotalProcessedTasks();
+        }
+
+        return totalProcessedTasks == 0 ? 0.0 : (double) totalWaitingTime / totalProcessedTasks;
+    }
+
 }
