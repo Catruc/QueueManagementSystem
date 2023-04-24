@@ -26,13 +26,13 @@ public class QueueManager {
         servers = new ArrayList<>();  // List of servers
         waitingClients = new PriorityQueue<>(Comparator.comparingInt(Task::getArrivalTime));  // List of waiting clients
         barrier = new CyclicBarrier(numServers);   // Cyclic barrier for the servers
-        this.queueHistory = new StringBuilder();
-        tasksPerTimeInterval = new HashMap<>();
-        peakHour = new AtomicInteger(0);
+        this.queueHistory = new StringBuilder();    // String builder for the queue history
+        tasksPerTimeInterval = new HashMap<>();    // Map for the tasks per time interval
+        peakHour = new AtomicInteger(0);   // Atomic integer for the peak hour
 
         for (int i = 0; i < numServers; i++) {
             BlockingQueue<Task> taskQueue = new LinkedBlockingQueue<>();  // Create a queue for each server
-            String serverName = "QUEUE"+(i+1);
+            String serverName = "QUEUE"+(i+1);   // Create a name for each server
             Server server = new Server(taskQueue, maxSimulationTime, barrier,serverName);  // Create a server with the queue
             servers.add(server);  // Add the server to the list of servers
             Thread serverThread = new Thread(server);  // Create a thread for the server
@@ -62,32 +62,32 @@ public class QueueManager {
 
 
 
-    public synchronized void distributeClient(Task client) {
-        if (client.getArrivalTime() <= maxSimulationTime) {
-            int minTasks = Integer.MAX_VALUE;
-            int minServiceTime = Integer.MAX_VALUE;
-            Server bestServer = null;
+    public synchronized void distributeClient(Task client) {   // Distribute the client to the server with the least tasks
+        if (client.getArrivalTime() <= maxSimulationTime) {  // If the client's arrival time is less than the maximum simulation time
+            int minTasks = Integer.MAX_VALUE;   // Minimum number of tasks
+            int minServiceTime = Integer.MAX_VALUE;   // Minimum service time
+            Server bestServer = null;   // Best server
 
-            for (Server server : servers) {
-                int currentTasks = server.getTasks().size();
-                int currentServiceTime = getTotalServiceTime(server);
+            for (Server server : servers) {   // For each server
+                int currentTasks = server.getTasks().size();  // Get the number of tasks
+                int currentServiceTime = getTotalServiceTime(server);   // Get the total service time
 
-                if (currentTasks < minTasks || (currentTasks == minTasks && currentServiceTime < minServiceTime)) {
-                    minTasks = currentTasks;
-                    minServiceTime = currentServiceTime;
-                    bestServer = server;
+                if (currentTasks < minTasks || (currentTasks == minTasks && currentServiceTime < minServiceTime)) {  // If the current number of tasks is less than the minimum number of tasks or if the current number of tasks is equal to the minimum number of tasks and the current service time is less than the minimum service time
+                    minTasks = currentTasks;   // Set the minimum number of tasks to the current number of tasks
+                    minServiceTime = currentServiceTime;   // Set the minimum service time to the current service time
+                    bestServer = server;   // Set the best server to the current server
                 }
             }
 
-            if (bestServer != null) {
-                bestServer.addTask(client);
+            if (bestServer != null) {   // If the best server is not null
+                bestServer.addTask(client);   // Add the client to the best server
             }
         }
     }
 
     public void findPeakHour() {
-        int peakHourValue = tasksPerTimeInterval.entrySet().stream().max(Map.Entry.comparingByValue()).orElseThrow(RuntimeException::new).getKey();
-        peakHour.set(peakHourValue);
+        int peakHourValue = tasksPerTimeInterval.entrySet().stream().max(Map.Entry.comparingByValue()).orElseThrow(RuntimeException::new).getKey();   // Find the peak hour
+        peakHour.set(peakHourValue);   // Set the peak hour
     }
 
 
@@ -113,14 +113,14 @@ public class QueueManager {
     }
 
     public void processClients(List<Server> servers, int maxSimulationTime, List<Task> tasks) {
-        ExecutorService executorService = Executors.newFixedThreadPool(numServers);
-        int currentTime = 0;
-        int stop = 1;
-        double averageServingTime = calculateAverageServingTime(tasks);
-        while (!waitingClients.isEmpty() || currentTime < maxSimulationTime||stop==1) {
-            while (!waitingClients.isEmpty() && waitingClients.peek().getArrivalTime() == currentTime) {
-                Task client = waitingClients.poll();
-                distributeClient(client);
+        ExecutorService executorService = Executors.newFixedThreadPool(numServers);  // Create a fixed thread pool with the number of servers
+        int currentTime = 0;  // Current time
+        int stop = 1;  // Stop variable
+        double averageServingTime = calculateAverageServingTime(tasks);  // Calculate the average serving time
+        while (!waitingClients.isEmpty() || currentTime < maxSimulationTime||stop==1) {   // While there are waiting clients or the current time is less than the maximum simulation time
+            while (!waitingClients.isEmpty() && waitingClients.peek().getArrivalTime() == currentTime) {   // While there are waiting clients and the arrival time of the first client is equal to the current time
+                Task client = waitingClients.poll();   // Get the first client
+                distributeClient(client);   // Distribute the client
             }
             printLiveStatus(currentTime,executorService);
 
@@ -129,10 +129,10 @@ public class QueueManager {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            currentTime++;
-            stop = 0;
+            currentTime++;   // Increment the current time
+            stop = 0;   // Set the stop variable to 0
         }
-        executorService.shutdown();
+        executorService.shutdown();   // Shutdown the executor service
         if (stop == 0) {
             queueHistory.append("Simulation finished").append(System.lineSeparator());
             findPeakHour();
@@ -153,23 +153,23 @@ public class QueueManager {
     }
 
     public double calculateAverageServingTime(List<Task> tasks) {
-        int totalServiceTime = 0;
+        int totalServiceTime = 0;   // Total service time
         for (Task task : tasks) {
-            totalServiceTime += task.getServiceTime();
+            totalServiceTime += task.getServiceTime();   // Add the service time of each task to the total service time
         }
-        return (double) totalServiceTime / tasks.size();
+        return (double) totalServiceTime / tasks.size();  // Return the average service time
     }
 
     public double calculateAverageWaitingTime() {
-        int totalWaitingTime = 0;
-        int totalProcessedTasks = 0;
+        int totalWaitingTime = 0;   // Total waiting time
+        int totalProcessedTasks = 0;   // Total processed tasks
 
-        for (Server server : servers) {
-            totalWaitingTime += server.getTotalWaitingTime();
-            totalProcessedTasks += server.getTotalProcessedTasks();
+        for (Server server : servers) {   // For each server
+            totalWaitingTime += server.getTotalWaitingTime();   // Add the total waiting time of each server to the total waiting time
+            totalProcessedTasks += server.getTotalProcessedTasks();   // Add the total processed tasks of each server to the total processed tasks
         }
 
-        return totalProcessedTasks == 0 ? 0.0 : (double) totalWaitingTime / totalProcessedTasks;
+        return totalProcessedTasks == 0 ? 0.0 : (double) totalWaitingTime / totalProcessedTasks;  // Return the average waiting time
     }
 
 }
