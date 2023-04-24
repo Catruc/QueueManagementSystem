@@ -61,7 +61,7 @@ public class Server implements Runnable {
                         decrementServiceTime();   // Decrement the service time of the task
                         if (currentTask.getServiceTime() == 0) {    // If the service time of the task is 0, remove it from the queue
                             tasks.poll();
-                            int taskWaitingTime = currentTime - currentTask.getArrivalTime() - currentTask.getServiceTime();  // Calculate the waiting time of the task
+                            int taskWaitingTime = currentTime - currentTask.getArrivalTime(); //- currentTask.getServiceTime();  // Calculate the waiting time of the task
                             currentTask.setWaitingTime(taskWaitingTime);
                             waitingPeriod.addAndGet(-currentTask.getServiceTime());
                             totalWaitingTime.addAndGet(currentTask.getWaitingTime());

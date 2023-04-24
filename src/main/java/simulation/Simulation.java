@@ -10,17 +10,17 @@ import java.util.concurrent.BlockingQueue;
 public class Simulation {
 
     public static void main(String[] args) {
-        int numServers = 20;
-        int numTasks = 1000;
-        int maxSimulationTime = 200;
+        int numServers = 2;
+        int numTasks = 10;
+        int maxSimulationTime = 60;
         // Create the QueueManager
         QueueManager queueManager = new QueueManager(numServers,maxSimulationTime);
 
         // Generate random tasks
-        int minArrivalTime = 10;
-        int maxArrivalTime = 100;
-        int minServiceTime = 3;
-        int maxServiceTime = 9;
+        int minArrivalTime = 3;
+        int maxArrivalTime = 40;
+        int minServiceTime = 2;
+        int maxServiceTime = 5;
         BlockingQueue<Task> tasks = Task.generateRandomTask(numTasks, minArrivalTime, maxArrivalTime, minServiceTime, maxServiceTime);
         double average=queueManager.calculateAverageServingTime(new ArrayList<>(tasks));
         // Add tasks to the queue manager
