@@ -1,114 +1,114 @@
 Time: 0
-Clients not yet in any queue: [{2,5,3}, {1,10,2}, {3,8,2}, {4,11,2}]
+Clients not yet in any queue: [{4,2,2}, {3,8,3}, {2,12,3}, {1,26,2}]
 QUEUE1[]
 QUEUE2[]
 Time: 1
-Clients not yet in any queue: [{2,5,3}, {1,10,2}, {3,8,2}, {4,11,2}]
+Clients not yet in any queue: [{4,2,2}, {3,8,3}, {2,12,3}, {1,26,2}]
 QUEUE1[]
 QUEUE2[]
 Time: 2
-Clients not yet in any queue: [{2,5,3}, {1,10,2}, {3,8,2}, {4,11,2}]
-QUEUE1[]
+Clients not yet in any queue: [{3,8,3}, {1,26,2}, {2,12,3}]
+QUEUE1[{4,2,2}]
 QUEUE2[]
 Time: 3
-Clients not yet in any queue: [{2,5,3}, {1,10,2}, {3,8,2}, {4,11,2}]
-QUEUE1[]
+Clients not yet in any queue: [{3,8,3}, {1,26,2}, {2,12,3}]
+QUEUE1[{4,2,1}]
 QUEUE2[]
 Time: 4
-Clients not yet in any queue: [{2,5,3}, {1,10,2}, {3,8,2}, {4,11,2}]
+Clients not yet in any queue: [{3,8,3}, {1,26,2}, {2,12,3}]
 QUEUE1[]
 QUEUE2[]
 Time: 5
-Clients not yet in any queue: [{3,8,2}, {1,10,2}, {4,11,2}]
-QUEUE1[{2,5,3}]
+Clients not yet in any queue: [{3,8,3}, {1,26,2}, {2,12,3}]
+QUEUE1[]
 QUEUE2[]
 Time: 6
-Clients not yet in any queue: [{3,8,2}, {1,10,2}, {4,11,2}]
-QUEUE1[{2,5,2}]
+Clients not yet in any queue: [{3,8,3}, {1,26,2}, {2,12,3}]
+QUEUE1[]
 QUEUE2[]
 Time: 7
-Clients not yet in any queue: [{3,8,2}, {1,10,2}, {4,11,2}]
-QUEUE1[{2,5,1}]
+Clients not yet in any queue: [{3,8,3}, {1,26,2}, {2,12,3}]
+QUEUE1[]
 QUEUE2[]
 Time: 8
-Clients not yet in any queue: [{1,10,2}, {4,11,2}]
-QUEUE1[{3,8,2}]
+Clients not yet in any queue: [{2,12,3}, {1,26,2}]
+QUEUE1[{3,8,3}]
 QUEUE2[]
 Time: 9
-Clients not yet in any queue: [{1,10,2}, {4,11,2}]
-QUEUE1[{3,8,1}]
+Clients not yet in any queue: [{2,12,3}, {1,26,2}]
+QUEUE1[{3,8,2}]
 QUEUE2[]
 Time: 10
-Clients not yet in any queue: [{4,11,2}]
-QUEUE1[{1,10,2}]
+Clients not yet in any queue: [{2,12,3}, {1,26,2}]
+QUEUE1[{3,8,1}]
 QUEUE2[]
 Time: 11
-Clients not yet in any queue: []
-QUEUE1[{1,10,1}]
-QUEUE2[{4,11,2}]
+Clients not yet in any queue: [{2,12,3}, {1,26,2}]
+QUEUE1[]
+QUEUE2[]
 Time: 12
-Clients not yet in any queue: []
-QUEUE1[]
-QUEUE2[{4,11,1}]
+Clients not yet in any queue: [{1,26,2}]
+QUEUE1[{2,12,3}]
+QUEUE2[]
 Time: 13
-Clients not yet in any queue: []
-QUEUE1[]
+Clients not yet in any queue: [{1,26,2}]
+QUEUE1[{2,12,2}]
 QUEUE2[]
 Time: 14
-Clients not yet in any queue: []
-QUEUE1[]
+Clients not yet in any queue: [{1,26,2}]
+QUEUE1[{2,12,1}]
 QUEUE2[]
 Time: 15
-Clients not yet in any queue: []
+Clients not yet in any queue: [{1,26,2}]
 QUEUE1[]
 QUEUE2[]
 Time: 16
-Clients not yet in any queue: []
+Clients not yet in any queue: [{1,26,2}]
 QUEUE1[]
 QUEUE2[]
 Time: 17
-Clients not yet in any queue: []
+Clients not yet in any queue: [{1,26,2}]
 QUEUE1[]
 QUEUE2[]
 Time: 18
-Clients not yet in any queue: []
+Clients not yet in any queue: [{1,26,2}]
 QUEUE1[]
 QUEUE2[]
 Time: 19
-Clients not yet in any queue: []
+Clients not yet in any queue: [{1,26,2}]
 QUEUE1[]
 QUEUE2[]
 Time: 20
-Clients not yet in any queue: []
+Clients not yet in any queue: [{1,26,2}]
 QUEUE1[]
 QUEUE2[]
 Time: 21
-Clients not yet in any queue: []
+Clients not yet in any queue: [{1,26,2}]
 QUEUE1[]
 QUEUE2[]
 Time: 22
-Clients not yet in any queue: []
+Clients not yet in any queue: [{1,26,2}]
 QUEUE1[]
 QUEUE2[]
 Time: 23
-Clients not yet in any queue: []
+Clients not yet in any queue: [{1,26,2}]
 QUEUE1[]
 QUEUE2[]
 Time: 24
-Clients not yet in any queue: []
+Clients not yet in any queue: [{1,26,2}]
 QUEUE1[]
 QUEUE2[]
 Time: 25
-Clients not yet in any queue: []
+Clients not yet in any queue: [{1,26,2}]
 QUEUE1[]
 QUEUE2[]
 Time: 26
 Clients not yet in any queue: []
-QUEUE1[]
+QUEUE1[{1,26,2}]
 QUEUE2[]
 Time: 27
 Clients not yet in any queue: []
-QUEUE1[]
+QUEUE1[{1,26,1}]
 QUEUE2[]
 Time: 28
 Clients not yet in any queue: []
@@ -239,6 +239,6 @@ Clients not yet in any queue: []
 QUEUE1[]
 QUEUE2[]
 Simulation finished
-Peak hour: 11
-Average serving time: 2.25
-Average waiting time: 2.25
+Peak hour: 2
+Average serving time: 2.5
+Average waiting time: 2.5
