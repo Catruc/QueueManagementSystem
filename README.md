@@ -13,5 +13,6 @@ Comprehensive Reporting: After each simulation, the system generates detailed re
 User-Friendly Interface: Designed with Java Swing, the application boasts a clean, intuitive interface that simplifies the complexity of queue management for users of all skill levels.
 
 Transform Your Service Delivery
+
 The Queue Management System is the perfect tool for businesses looking to enhance their customer service experience. By simulating queue flows and analyzing waiting times, our application provides actionable insights that can lead to significant improvements in service efficiency and customer satisfaction.
 Whether you're managing a busy retail store, a bustling bank, or any customer-oriented business, our Queue Management System offers a powerful solution to streamline your operations and elevate the customer experience. Embrace the future of queue management with our sophisticated, Java Swing-based application, and take the first step towards operational excellence today.
